@@ -38,3 +38,8 @@ Thumbs.db
 Desktop.ini
 .DS_Store
 *Zone.Identifier
+
+# ---- Visual Studio upgrade reports ----
+UpgradeLog*.htm
+UpgradeLog*.XML
+_UpgradeReport_Files/

@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour
     public float right_range = 8.0f;
     public float up_range = 5.0f;
     public float down_range = -3.0f;
+    public Transform model;
+    public float maxRoll = 30.0f;
+    public float maxPitch = 30.0f;
+    public float tiltSpeed = 8.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,5 +57,16 @@ public class PlayerController : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, left_range, right_range);
         pos.y = Mathf.Clamp(pos.y, down_range, up_range);
         transform.localPosition = pos;
+
+        float roll = 0.0f;
+        float pitch = 0.0f;
+
+        // Tilt the player model based on horizontal and vertical input
+        roll = -horizontal * maxRoll;
+        pitch = -vertical * maxPitch;
+        // Turns three angles into a rotation
+        Quaternion target_Rotation = Quaternion.Euler(pitch, 0, roll);
+        // Smoothly interpolate between the current rotation and the target rotation
+        model.localRotation = Quaternion.Slerp(model.localRotation, target_Rotation, tiltSpeed * Time.deltaTime);
     }
 }
